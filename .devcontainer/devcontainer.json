@@ -34,7 +34,8 @@
 		"vscode": {
 			"extensions": [
 				"vscjava.vscode-java-pack",
-				"redhat.vscode-community-server-connector"
+				"redhat.vscode-community-server-connector",
+				"ecmel.vscode-html-css"
 			]
 		}
 	}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off">
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout>
+        <Pattern>%d %-6p [%t] %l %m%n</Pattern>
+      </PatternLayout>
+    </Console>
+    <File name="applogfile" fileName="${sys:catalina.home}/logs/${web:servletContextName}.app.log">
+      <PatternLayout>
+        <Pattern>%d %-6p [%t] %l %m%n</Pattern>
+      </PatternLayout>
+    </File>
+    <File name="authlogfile" fileName="${sys:catalina.home}/logs/${web:servletContextName}.auth.log">
+      <PatternLayout>
+        <Pattern>%d %m%n</Pattern>
+      </PatternLayout>
+    </File>
+
+  </Appenders>
+
+  <Loggers>
+    <Root level="ERROR">
+      <AppenderRef ref="console" />
+    </Root>
+    <Logger name="com.example" level="INFO" additivity="false">
+      <AppenderRef ref="applogfile" />
+    </Logger>
+    <Logger name="authlog" additivity="false" level="INFO">
+      <AppenderRef ref="authlogfile" />
+    </Logger>
+  </Loggers>
+</Configuration>
