@@ -35,7 +35,8 @@
 			"extensions": [
 				"vscjava.vscode-java-pack",
 				"redhat.vscode-community-server-connector",
-				"ecmel.vscode-html-css"
+				"ecmel.vscode-html-css",
+				"xabikos.JavaScriptSnippets"
 			]
 		}
 	}

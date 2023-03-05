@@ -12,10 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.example.zzz.Config;
-
-import static com.example.Constant.*;
-
 @WebServlet(urlPatterns = { "/request" }, loadOnStartup = 0)
 public class RequestServlet extends HttpServlet {
 
@@ -28,10 +24,10 @@ public class RequestServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         // 環境モードの判定
-        Optional<String> env = Optional.ofNullable(getServletContext().getInitParameter(CTX_PRM_ENV));
+        Optional<String> env = Optional.ofNullable(getServletContext().getInitParameter("env"));
         isProduction = env.isPresent() ? env.get().equals("production") : false;
 
-        // リクエスト電文の生成
+        // 権限要求文字列生成
         this.requestMessage = "リクエスト電文";
     }
 
@@ -39,14 +35,9 @@ public class RequestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             // リクエストパラメータの設定
-            req.setAttribute(AUTH_REQUEST, requestMessage);
+            req.setAttribute("auth_request", requestMessage);
 
-            log.trace("msg");
-            log.debug("msg");
-            log.info("msg");
-            log.warn("msg");
-            log.error("msg");
-
+            // 動作モードにより表示画面を切り替え
             if (isProduction) {
                 req.getRequestDispatcher("/WEB-INF/jsp/request.jsp").forward(req, resp);
             } else {

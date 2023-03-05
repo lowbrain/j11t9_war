@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,9 +20,24 @@ public class ResponseServlet extends HttpServlet {
     private final Logger authLog = LogManager.getLogger("authlog");
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            authLog.info("ユーザID 認証データ タイムスタンプ");
+            req.setCharacterEncoding("UTF-8");
+            
+            // パラメータのチェック１
+            Optional<String> item1 = Optional.ofNullable(req.getParameter("item1"));
+            if (!item1.isPresent()) throw new IllegalArgumentException("item1");
+
+            // パラメータのチェック２
+            Optional<String> item2 = Optional.ofNullable(req.getParameter("item2"));
+            if (!item2.isPresent()) throw new IllegalArgumentException("item2");
+
+            // テストモードONのときのみ復号化
+
+            // ログ
+            authLog.info("item1:" + item1.get() + ", item2:"+ item2.get());
+
+            // リダイレクトURL生成＆リダイレクト
         } catch (Throwable e) {
             log.error("システムエラーが発生しました。", e);
             throw e;
